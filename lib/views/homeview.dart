@@ -6,7 +6,11 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Text("halaman Home"),
+      body: ElevatedButton(
+          onPressed: () {
+            Navigator.pushNamed(context, '/login');
+          },
+          child: Text('Login')),
     );
   }
 }

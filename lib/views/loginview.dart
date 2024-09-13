@@ -37,6 +37,16 @@ class LoginView extends StatelessWidget {
             },
             child: Text("Profile"),
           ),
+          ElevatedButton(
+            onPressed: () {
+              Navigator.pushNamed(context, '/transaksi', arguments: {
+                'id': 1,
+                'product': 'bakso',
+                'price': 5000,
+              });
+            },
+            child: Text("Trans"),
+          )
         ],
       ),
     );

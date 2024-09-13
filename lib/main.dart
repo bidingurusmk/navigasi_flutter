@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:navigasi_flutter/views/homeview.dart';
 import 'package:navigasi_flutter/views/loginview.dart';
 import 'package:navigasi_flutter/views/profileview.dart';
+import 'package:navigasi_flutter/views/transaksiview.dart';
 
 void main() {
   runApp(const MyApp());
@@ -16,8 +17,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       initialRoute: '/',
       routes: {
-        '/login': (_) => LoginView(),
-        '/': (_) => HomeView(),
+        '/login': (context) => LoginView(),
+        '/': (context) => HomeView(),
+        '/transaksi': (context) => TransaksiView(),
         // '/profile': (_) => ProfileView(),
       },
     );
