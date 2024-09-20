@@ -11,6 +11,12 @@ class TransaksiView extends StatelessWidget {
         Text("ID : ${args['id']}"),
         Text("Nama Produk : ${args['product']}"),
         Text("Harga : ${args['price']}"),
+        IconButton(
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back),
+        )
       ],
     );
   }
