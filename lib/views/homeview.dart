@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../widgets/menu_bottom.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({super.key});
@@ -11,6 +12,7 @@ class HomeView extends StatelessWidget {
             Navigator.pushNamed(context, '/login');
           },
           child: Text('Login')),
+      bottomNavigationBar: MenuBottom(),
     );
   }
 }
