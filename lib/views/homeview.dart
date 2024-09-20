@@ -12,7 +12,7 @@ class HomeView extends StatelessWidget {
             Navigator.pushNamed(context, '/login');
           },
           child: Text('Login')),
-      bottomNavigationBar: MenuBottom(),
+      bottomNavigationBar: MenuBottom(0),
     );
   }
 }
