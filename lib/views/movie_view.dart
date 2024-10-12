@@ -16,8 +16,9 @@ class _MovieViewState extends State<MovieView> {
   TextEditingController title = TextEditingController();
   TextEditingController gambar = TextEditingController();
   TextEditingController voteAverage = TextEditingController();
-  List buttonChoice = ["Updaate", "Hapus"];
+  List buttonChoice = ["Update", "Hapus"];
   List? film;
+  int? film_id;
   getFilm() {
     setState(() {
       film = movie.movie;
@@ -39,10 +40,13 @@ class _MovieViewState extends State<MovieView> {
         actions: [
           IconButton(
               onPressed: () {
+                setState(() {
+                  film_id = null;
+                });
                 title.text = '';
                 gambar.text = '';
                 voteAverage.text = '';
-                ModalWidget().showFullModal(context, addItem());
+                ModalWidget().showFullModal(context, addItem(null));
               },
               icon: Icon(Icons.add))
         ],
@@ -62,8 +66,19 @@ class _MovieViewState extends State<MovieView> {
                         child: Text(r),
                         onTap: () {
                           if (r == "Update") {
+                            setState(() {
+                              film_id = film![index].id;
+                            });
+
+                            title.text = film![index].title;
+                            gambar.text = film![index].posterPath;
+                            voteAverage.text =
+                                film![index].voteAverage.toString();
+                            ModalWidget()
+                                .showFullModal(context, addItem(index));
                           } else if (r == "Hapus") {
-                            film!.removeWhere((item) => item.id == index);
+                            film!.removeWhere(
+                                (item) => item.id == film![index].id);
                             getFilm();
                           }
                         },
@@ -77,7 +92,7 @@ class _MovieViewState extends State<MovieView> {
     );
   }
 
-  Widget addItem() {
+  Widget addItem(int? index) {
     return Container(
       child: Form(
         key: formKey,
@@ -116,14 +131,24 @@ class _MovieViewState extends State<MovieView> {
             ElevatedButton(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
-                    film!.add(MovieModel(
-                      id: 2,
-                      title: title.text,
-                      posterPath: gambar.text,
-                      voteAverage: double.parse(voteAverage.text),
-                    ));
-                    getFilm();
-                    Navigator.pop(context);
+                    if (index != null) {
+                      film![index].id = film_id;
+                      film![index].title = title.text;
+                      film![index].posterPath = gambar.text;
+                      film![index].voteAverage = double.parse(voteAverage.text);
+                      getFilm();
+                      Navigator.pop(context);
+                    } else {
+                      int _id_film = film!.length + 1;
+                      film!.add(MovieModel(
+                        id: _id_film,
+                        title: title.text,
+                        posterPath: gambar.text,
+                        voteAverage: double.parse(voteAverage.text),
+                      ));
+                      getFilm();
+                      Navigator.pop(context);
+                    }
                   }
                 },
                 child: Text("Simpan"))
